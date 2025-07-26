@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Staff Tool Hub</title>
+  <link rel="icon" type="image/svg+xml" href="hub-icon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #1e1e1e;
+      color: white;
+      height: 100vh;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 280px;
+      background-color: #2a2a2a;
+      padding: 30px 20px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar h1 {
+      color: orange;
+      margin-bottom: 25px;
+      font-size: 22px;
+    }
+
+    .sidebar h2 {
+      font-size: 16px;
+      color: #ccc;
+      margin: 25px 0 10px;
+      border-top: 1px solid #444;
+      padding-top: 10px;
+    }
+
+    .link-button {
+      background-color: #444;
+      color: white;
+      padding: 12px 15px;
+      margin: 6px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .link-button:hover {
+      background-color: #666;
+    }
+
+    .external {
+      background-color: #374151;
+    }
+
+    .external:hover {
+      background-color: #4b5563;
+    }
+
+    .link-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .link-label svg {
+      width: 20px;
+      height: 20px;
+      stroke: white;
+    }
+
+    .preview {
+      flex-grow: 1;
+      border: none;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h1>Staff Tool Hub</h1>
+
+    <!-- Internal Tools -->
+    <button class="link-button" onclick="loadTool('https://nzdurriez.github.io/EvidenceGenerator/')">
+      <span class="link-label">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12v4m0 0v-4m0 4l-2-2m2 2l2-2M4 12h16" />
+        </svg>
+        Evidence Generator
+      </span>
+    </button>
+
+    <button class="link-button" onclick="loadTool('https://nzdurriez.github.io/BanAppealTemplate/')">
+      <span class="link-label">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-1.414 1.414m0 0a9 9 0 11-2.828-2.828l1.414-1.414a1 1 0 011.414 0l1.414 1.414a1 1 0 010 1.414z" />
+        </svg>
+        Ban Appeal Template
+      </span>
+    </button>
+
+    <button class="link-button" onclick="loadTool('https://nzdurriez.github.io/3SP-Template-Auto/')">
+      <span class="link-label">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8M8 12h8m-6 4h6m2-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        3SP Template Generator
+      </span>
+    </button>
+
+    <button class="link-button" onclick="loadTool('https://nzdurriez.github.io/CIV-Acceptance/')">
+      <span class="link-label">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L7 19.25m0 0L4.25 17M7 19.25V9M16 3.75L19.75 7.5M16 3.75L12.25 7.5M16 3.75v12.5" />
+        </svg>
+        Civ+ Acceptance Generator
+      </span>
+    </button>
+
+	<button class="link-button" onclick="loadTool('https://nzdurriez.github.io/commands.html')">
+	<span class="link-label">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
+    </svg>
+    Ingame & Discord Commands
+	</span>
+	</button>
+
+    <!-- External Tools -->
+    <h2>External Tools</h2>
+
+    <button class="link-button external" onclick="openNewTab('https://tx.bhrp.nz/')">
+      <span class="link-label">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h2a1 1 0 011 1v2a1 1 0 01-1 1H3m6 0h6m-3-3v6m0 0a9 9 0 110-18 9 9 0 010 18z" />
+        </svg>
+        TXAdmin Panel
+      </span> ↗
+    </button>
+
+    <button class="link-button external" onclick="openNewTab('https://docs.google.com/spreadsheets/d/1GWJWGaOomAAzSH5B8wvqd0k7g0yfIpdrS0RzSYjzweQ/edit?usp=sharing')">
+      <span class="link-label">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6m4 6v-4m4 4v-2m4 6H3a1 1 0 01-1-1V3a1 1 0 011-1h18a1 1 0 011 1v18a1 1 0 01-1 1z" />
+        </svg>
+        3SP Tracking Portal
+      </span> ↗
+    </button>
+
+    <button class="link-button external" onclick="openNewTab('https://www.beehiverp.com/topic/1949-fivepd-rules/#comment-3383')">
+      <span class="link-label">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 14v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M5 10V5a2 2 0 012-2h10a2 2 0 012 2v5" />
+        </svg>
+        Server Rules
+      </span> ↗
+    </button>
+
+    <button class="link-button external" onclick="openNewTab('https://dashboard.ticketsbot.cloud/manage/815563382211739670/transcripts')">
+      <span class="link-label">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h8m-8 4h6m-6 4h4m3 4H5a2 2 0 01-2-2V5a2 2 0 012-2h5l2 2h7a2 2 0 012 2v6" />
+        </svg>
+        Ticket Logs
+      </span> ↗
+    </button>
+
+    <button class="link-button external" onclick="openNewTab('https://docs.google.com/document/d/1mLfbfBX1cTTuX597CL-6o1_hlk-py783miehExjXAtQ/edit?tab=t.0')">
+      <span class="link-label">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h6m-6 4h10M4 6h16a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
+        </svg>
+        Staff SOPs
+      </span> ↗
+    </button>
+  </div>
+
+  <div class="content">
+    <iframe id="preview" class="preview" src=""></iframe>
+  </div>
+
+  <script>
+    function loadTool(url) {
+      document.getElementById('preview').src = url;
+    }
+
+    function openNewTab(url) {
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
