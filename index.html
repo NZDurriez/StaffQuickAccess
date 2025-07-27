@@ -23,8 +23,12 @@
       box-shadow: 2px 0 5px rgba(0,0,0,0.4);
       display: flex;
       flex-direction: column;
-      box-sizing: border-box;
       overflow-y: auto;
+      scrollbar-width: none;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      display: none;
     }
 
     .sidebar h1 {
@@ -79,7 +83,6 @@
       width: 20px;
       height: 20px;
       stroke: white;
-      flex-shrink: 0;
     }
 
     .iframes {
@@ -87,7 +90,6 @@
       width: 100%;
       height: 100vh;
       position: relative;
-      overflow: hidden;
     }
 
     .tool-frame {
@@ -112,11 +114,12 @@
 <body>
   <div class="sidebar">
     <h1>Staff Tool Hub</h1>
+
+    <!-- Internal Tools -->
     <button class="link-button" onclick="showTool('tool-evidence')">
       <span class="link-label">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3 20.25v-1.5a6.375 6.375 0 0 1 12.75 0v1.5" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h4m-4-8h6m4 12H5a2 2 0 01-2-2V5a2 2 0 012-2h5l2 2h7a2 2 0 012 2v12a2 2 0 01-2 2z" />
         </svg>
         Evidence Form
       </span>
@@ -125,7 +128,7 @@
     <button class="link-button" onclick="showTool('tool-ban')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-1.414 1.414M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-1.414 1.414M12 9v6m6.364-1.364A9 9 0 116.636 6.636" />
         </svg>
         Ban Appeal Template
       </span>
@@ -134,7 +137,7 @@
     <button class="link-button" onclick="showTool('tool-3sp')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8M8 12h8m-6 4h6m2-2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8M8 12h8m-8-4h8m2 12H6a2 2 0 01-2-2V6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v12a2 2 0 01-2 2z" />
         </svg>
         3SP Ticket Template
       </span>
@@ -142,8 +145,8 @@
 
     <button class="link-button" onclick="showTool('tool-civ')">
       <span class="link-label">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3M6 21a12.318 12.318 0 0 1-6.374-1.766v-.109a6.375 6.375 0 0 1 12.75 0v.11A12.318 12.318 0 0 1 6 21z" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 7v3m0 0v3m0-3h3m-3 0h-3M9 10a3 3 0 100-6 3 3 0 000 6zM3 20v-.11a6.375 6.375 0 0112.75 0V20a12.318 12.318 0 01-6.375 1.5A12.318 12.318 0 013 20z" />
         </svg>
         Civ+ Accept/Deny
       </span>
@@ -151,8 +154,8 @@
 
     <button class="link-button" onclick="showTool('tool-punishment')">
       <span class="link-label">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9M12 4h9M3 9h13M3 15h13M9 4v16" />
         </svg>
         Punishment Guidelines
       </span>
@@ -160,19 +163,20 @@
 
     <button class="link-button" onclick="showTool('tool-commands')">
       <span class="link-label">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6m-3-9h6a3 3 0 1 1 0 6H9a3 3 0 1 0 0 6h6" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h8m-8 5h16" />
         </svg>
         Ingame & Discord Commands
       </span>
     </button>
 
+    <!-- External Tools -->
     <h2>External Tools</h2>
 
     <button class="link-button external" onclick="window.open('https://tx.bhrp.nz/', '_blank')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h7v7H3V3zm11 0h7v7h-7V3zm-11 11h7v7H3v-7zm11 0h7v7h-7v-7z" />
         </svg>
         TXAdmin Panel
       </span> ↗
@@ -181,7 +185,7 @@
     <button class="link-button external" onclick="window.open('https://docs.google.com/spreadsheets/d/1GWJWGaOomAAzSH5B8wvqd0k7g0yfIpdrS0RzSYjzweQ/edit?usp=sharing', '_blank')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6m4 6v-4m4 4v-2M3 21h18a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v17a1 1 0 0 0 1 1z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6m4 6v-4m4 4v-2m4 6H3a1 1 0 01-1-1V3a1 1 0 011-1h18a1 1 0 011 1v18a1 1 0 01-1 1z" />
         </svg>
         3SP Tracking Portal
       </span> ↗
@@ -190,7 +194,7 @@
     <button class="link-button external" onclick="window.open('https://www.beehiverp.com/topic/1949-fivepd-rules/#comment-3383', '_blank')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 14v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 14v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M5 10V5a2 2 0 012-2h10a2 2 0 012 2v5" />
         </svg>
         Server Rules
       </span> ↗
@@ -199,7 +203,7 @@
     <button class="link-button external" onclick="window.open('https://dashboard.ticketsbot.cloud/manage/815563382211739670/transcripts', '_blank')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h8m-8 4h6m-6 4h4" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h8m-8 4h6m-6 4h4m3 4H5a2 2 0 01-2-2V5a2 2 0 012-2h5l2 2h7a2 2 0 012 2v6" />
         </svg>
         Discord Ticket Logs
       </span> ↗
@@ -208,7 +212,7 @@
     <button class="link-button external" onclick="window.open('https://docs.google.com/document/d/1mLfbfBX1cTTuX597CL-6o1_hlk-py783miehExjXAtQ/edit?tab=t.0', '_blank')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h6m-6 4h10" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h6m-6 4h10M4 6h16a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
         </svg>
         Staff SOPs
       </span> ↗
