@@ -13,7 +13,9 @@
       color: white;
       height: 100vh;
       display: flex;
+      overflow: hidden;
     }
+
     .sidebar {
       width: 280px;
       background-color: #2a2a2a;
@@ -21,12 +23,16 @@
       box-shadow: 2px 0 5px rgba(0,0,0,0.4);
       display: flex;
       flex-direction: column;
+      box-sizing: border-box;
+      overflow-y: auto;
     }
+
     .sidebar h1 {
       color: orange;
       margin-bottom: 25px;
       font-size: 22px;
     }
+
     .sidebar h2 {
       font-size: 16px;
       color: #ccc;
@@ -34,6 +40,7 @@
       border-top: 1px solid #444;
       padding-top: 10px;
     }
+
     .link-button {
       background-color: #444;
       color: white;
@@ -49,38 +56,54 @@
       justify-content: space-between;
       align-items: center;
     }
+
     .link-button:hover {
       background-color: #666;
     }
+
     .external {
       background-color: #374151;
     }
+
     .external:hover {
       background-color: #4b5563;
     }
+
     .link-label {
       display: flex;
       align-items: center;
       gap: 10px;
     }
+
     .link-label svg {
       width: 20px;
       height: 20px;
       stroke: white;
+      flex-shrink: 0;
     }
+
     .iframes {
       flex-grow: 1;
       width: 100%;
       height: 100vh;
       position: relative;
+      overflow: hidden;
     }
+
     .tool-frame {
       position: absolute;
       border: none;
       width: 100%;
       height: 100%;
       display: none;
+      overflow: auto;
+      scrollbar-width: none;
     }
+
+    .tool-frame::-webkit-scrollbar {
+      display: none;
+    }
+
     .tool-frame.active {
       display: block;
     }
@@ -89,12 +112,11 @@
 <body>
   <div class="sidebar">
     <h1>Staff Tool Hub</h1>
-
-    <!-- Internal Tools -->
     <button class="link-button" onclick="showTool('tool-evidence')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 20.25v-1.5a6.375 6.375 0 0 1 12.75 0v1.5" />
         </svg>
         Evidence Form
       </span>
@@ -103,7 +125,7 @@
     <button class="link-button" onclick="showTool('tool-ban')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-1.414 1.414m0 0a9 9 0 11-2.828-2.828l1.414-1.414a1 1 0 011.414 0l1.414 1.414a1 1 0 010 1.414z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-1.414 1.414M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" />
         </svg>
         Ban Appeal Template
       </span>
@@ -112,7 +134,7 @@
     <button class="link-button" onclick="showTool('tool-3sp')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8M8 12h8m-6 4h6m2-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8M8 12h8m-6 4h6m2-2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
         </svg>
         3SP Ticket Template
       </span>
@@ -121,7 +143,7 @@
     <button class="link-button" onclick="showTool('tool-civ')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3M6 21a12.318 12.318 0 0 1-6.374-1.766v-.109a6.375 6.375 0 0 1 12.75 0v.11A12.318 12.318 0 0 1 6 21z" />
         </svg>
         Civ+ Accept/Deny
       </span>
@@ -130,7 +152,7 @@
     <button class="link-button" onclick="showTool('tool-punishment')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347M6.75 15v-3.675A55.378 55.378 0 0 1 12 8.443M3.75 9.334a50.717 50.717 0 0 1 8.25 4.155 50.702 50.702 0 0 1 7.74-3.342" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
         </svg>
         Punishment Guidelines
       </span>
@@ -138,19 +160,18 @@
 
     <button class="link-button" onclick="showTool('tool-commands')">
       <span class="link-label">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6m-3-9h6a3 3 0 1 1 0 6H9a3 3 0 1 0 0 6h6" />
         </svg>
         Ingame & Discord Commands
       </span>
     </button>
 
-    <!-- External Tools -->
     <h2>External Tools</h2>
 
     <button class="link-button external" onclick="window.open('https://tx.bhrp.nz/', '_blank')">
       <span class="link-label">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z" />
         </svg>
         TXAdmin Panel
@@ -160,7 +181,7 @@
     <button class="link-button external" onclick="window.open('https://docs.google.com/spreadsheets/d/1GWJWGaOomAAzSH5B8wvqd0k7g0yfIpdrS0RzSYjzweQ/edit?usp=sharing', '_blank')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6m4 6v-4m4 4v-2m4 6H3a1 1 0 01-1-1V3a1 1 0 011-1h18a1 1 0 011 1v18a1 1 0 01-1 1z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6m4 6v-4m4 4v-2M3 21h18a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v17a1 1 0 0 0 1 1z" />
         </svg>
         3SP Tracking Portal
       </span> ↗
@@ -169,7 +190,7 @@
     <button class="link-button external" onclick="window.open('https://www.beehiverp.com/topic/1949-fivepd-rules/#comment-3383', '_blank')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 14v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M5 10V5a2 2 0 012-2h10a2 2 0 012 2v5" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 14v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
         </svg>
         Server Rules
       </span> ↗
@@ -178,7 +199,7 @@
     <button class="link-button external" onclick="window.open('https://dashboard.ticketsbot.cloud/manage/815563382211739670/transcripts', '_blank')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h8m-8 4h6m-6 4h4m3 4H5a2 2 0 01-2-2V5a2 2 0 012-2h5l2 2h7a2 2 0 012 2v6" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h8m-8 4h6m-6 4h4" />
         </svg>
         Discord Ticket Logs
       </span> ↗
@@ -187,7 +208,7 @@
     <button class="link-button external" onclick="window.open('https://docs.google.com/document/d/1mLfbfBX1cTTuX597CL-6o1_hlk-py783miehExjXAtQ/edit?tab=t.0', '_blank')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h6m-6 4h10M4 6h16a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h6m-6 4h10" />
         </svg>
         Staff SOPs
       </span> ↗
