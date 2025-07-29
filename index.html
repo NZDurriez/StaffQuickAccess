@@ -109,9 +109,40 @@
     .tool-frame.active {
       display: block;
     }
+
+    .refresh-icon {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 30px;
+      height: 30px;
+      background-color: #28a745;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.4s ease;
+    }
+
+    .refresh-icon:hover {
+      background-color: #2ecc71;
+    }
+
+    .refresh-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: white;
+    }
+
+    .spin {
+      transform: rotate(360deg);
+    }
   </style>
 </head>
 <body>
+
   <div class="sidebar">
     <h1>Staff Tool Hub</h1>
 
@@ -226,12 +257,30 @@
     <iframe id="tool-civ" class="tool-frame" src="https://nzdurriez.github.io/CIV-Acceptance/"></iframe>
     <iframe id="tool-punishment" class="tool-frame" src="https://nzdurriez.github.io/PunishmentGuidelinesStaff/"></iframe>
     <iframe id="tool-commands" class="tool-frame" src="https://nzdurriez.github.io/StaffQuickAccess/commands.html"></iframe>
+
+    <div class="refresh-icon" onclick="refreshCurrentFrame(this)">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v6h6M20 20v-6h-6m1-9a9 9 0 00-9 9m14 0a9 9 0 01-9 9" />
+      </svg>
+    </div>
   </div>
 
   <script>
     function showTool(id) {
       document.querySelectorAll('.tool-frame').forEach(el => el.classList.remove('active'));
       document.getElementById(id).classList.add('active');
+    }
+
+    function refreshCurrentFrame(button) {
+      const currentFrame = document.querySelector('.tool-frame.active');
+      if (currentFrame) {
+        button.classList.add('spin');
+        const src = currentFrame.src;
+        currentFrame.src = src;
+        setTimeout(() => {
+          button.classList.remove('spin');
+        }, 400);
+      }
     }
   </script>
 </body>
