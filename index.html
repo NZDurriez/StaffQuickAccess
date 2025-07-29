@@ -110,10 +110,14 @@
       display: block;
     }
 
-    .refresh-icon {
+    .refresh-icon-wrapper {
       position: absolute;
       bottom: 20px;
       right: 20px;
+      z-index: 1000;
+    }
+
+    .refresh-icon {
       width: 30px;
       height: 30px;
       background-color: #28a745;
@@ -122,18 +126,36 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      z-index: 1000;
       transition: transform 0.4s ease;
+      position: relative;
     }
 
     .refresh-icon:hover {
       background-color: #2ecc71;
     }
 
-    .refresh-icon svg {
-      width: 18px;
-      height: 18px;
-      stroke: white;
+    .refresh-icon::after {
+      content: "Click to Refresh Single Page\\AHold to Refresh All Pages";
+      white-space: pre-line;
+      position: absolute;
+      bottom: 40px;
+      right: -20px;
+      background-color: #333;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      width: max-content;
+      max-width: 180px;
+      text-align: center;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .refresh-icon:hover::after {
+      opacity: 1;
     }
 
     .spin {
@@ -145,8 +167,8 @@
 
   <div class="sidebar">
     <h1>Staff Tool Hub</h1>
-
-    <!-- Internal Tools -->
+	
+	<!-- Internal Tools -->
     <button class="link-button" onclick="showTool('tool-evidence')">
       <span class="link-label">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -250,6 +272,8 @@
     </button>
   </div>
 
+  </div>
+
   <div class="iframes">
     <iframe id="tool-evidence" class="tool-frame" src="https://nzdurriez.github.io/EvidenceGenerator/"></iframe>
     <iframe id="tool-ban" class="tool-frame" src="https://nzdurriez.github.io/BanAppealTemplate/"></iframe>
@@ -258,67 +282,66 @@
     <iframe id="tool-punishment" class="tool-frame" src="https://nzdurriez.github.io/PunishmentGuidelinesStaff/"></iframe>
     <iframe id="tool-commands" class="tool-frame" src="https://nzdurriez.github.io/StaffQuickAccess/commands.html"></iframe>
 
-    <div class="refresh-icon" onclick="refreshCurrentFrame(this)" title="Click to Refresh Single Page&#10;Hold to Refresh All Pages">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-      </svg>
-
+    <div class="refresh-icon-wrapper">
+      <div class="refresh-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+        </svg>
+      </div>
     </div>
   </div>
 
   <script>
-  let refreshTimeout;
-  let refreshAllTriggered = false;
+    let refreshTimeout;
+    let refreshAllTriggered = false;
 
-  function showTool(id) {
-    document.querySelectorAll('.tool-frame').forEach(el => el.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
+    function showTool(id) {
+      document.querySelectorAll('.tool-frame').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
 
-  function refreshCurrentFrame(button) {
-    const currentFrame = document.querySelector('.tool-frame.active');
-    if (currentFrame) {
+    function refreshCurrentFrame(button) {
+      const currentFrame = document.querySelector('.tool-frame.active');
+      if (currentFrame) {
+        button.classList.add('spin');
+        currentFrame.src = currentFrame.src;
+        setTimeout(() => {
+          button.classList.remove('spin');
+        }, 400);
+      }
+    }
+
+    function refreshAllFrames(button) {
       button.classList.add('spin');
-      const src = currentFrame.src;
-      currentFrame.src = src;
+      document.querySelectorAll('.tool-frame').forEach(frame => {
+        frame.src = frame.src;
+      });
       setTimeout(() => {
         button.classList.remove('spin');
-      }, 400);
+      }, 600);
     }
-  }
 
-  function refreshAllFrames(button) {
-    button.classList.add('spin');
-    document.querySelectorAll('.tool-frame').forEach(frame => {
-      const src = frame.src;
-      frame.src = src;
+    const refreshButton = document.querySelector('.refresh-icon');
+
+    refreshButton.addEventListener('mousedown', () => {
+      refreshAllTriggered = false;
+      refreshTimeout = setTimeout(() => {
+        refreshAllTriggered = true;
+        refreshAllFrames(refreshButton);
+      }, 750); // 0.75 seconds
     });
-    setTimeout(() => {
-      button.classList.remove('spin');
-    }, 600);
-  }
 
-  const refreshButton = document.querySelector('.refresh-icon');
+    refreshButton.addEventListener('mouseup', () => {
+      clearTimeout(refreshTimeout);
+      if (!refreshAllTriggered) {
+        refreshCurrentFrame(refreshButton);
+      }
+    });
 
-  refreshButton.addEventListener('mousedown', () => {
-    refreshAllTriggered = false;
-    refreshTimeout = setTimeout(() => {
-      refreshAllTriggered = true;
-      refreshAllFrames(refreshButton);
-    }, 1500); // 3 seconds
-  });
-
-  refreshButton.addEventListener('mouseup', () => {
-    clearTimeout(refreshTimeout);
-    if (!refreshAllTriggered) {
-      refreshCurrentFrame(refreshButton);
-    }
-  });
-
-  refreshButton.addEventListener('mouseleave', () => {
-    clearTimeout(refreshTimeout);
-  });
-</script>
+    refreshButton.addEventListener('mouseleave', () => {
+      clearTimeout(refreshTimeout);
+    });
+  </script>
 
 </body>
 </html>
