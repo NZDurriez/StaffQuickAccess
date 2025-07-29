@@ -266,22 +266,58 @@
   </div>
 
   <script>
-    function showTool(id) {
-      document.querySelectorAll('.tool-frame').forEach(el => el.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
+  let refreshTimeout;
+  let refreshAllTriggered = false;
 
-    function refreshCurrentFrame(button) {
-      const currentFrame = document.querySelector('.tool-frame.active');
-      if (currentFrame) {
-        button.classList.add('spin');
-        const src = currentFrame.src;
-        currentFrame.src = src;
-        setTimeout(() => {
-          button.classList.remove('spin');
-        }, 400);
-      }
+  function showTool(id) {
+    document.querySelectorAll('.tool-frame').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function refreshCurrentFrame(button) {
+    const currentFrame = document.querySelector('.tool-frame.active');
+    if (currentFrame) {
+      button.classList.add('spin');
+      const src = currentFrame.src;
+      currentFrame.src = src;
+      setTimeout(() => {
+        button.classList.remove('spin');
+      }, 400);
     }
-  </script>
+  }
+
+  function refreshAllFrames(button) {
+    button.classList.add('spin');
+    document.querySelectorAll('.tool-frame').forEach(frame => {
+      const src = frame.src;
+      frame.src = src;
+    });
+    setTimeout(() => {
+      button.classList.remove('spin');
+    }, 600);
+  }
+
+  const refreshButton = document.querySelector('.refresh-icon');
+
+  refreshButton.addEventListener('mousedown', () => {
+    refreshAllTriggered = false;
+    refreshTimeout = setTimeout(() => {
+      refreshAllTriggered = true;
+      refreshAllFrames(refreshButton);
+    }, 1500); // 3 seconds
+  });
+
+  refreshButton.addEventListener('mouseup', () => {
+    clearTimeout(refreshTimeout);
+    if (!refreshAllTriggered) {
+      refreshCurrentFrame(refreshButton);
+    }
+  });
+
+  refreshButton.addEventListener('mouseleave', () => {
+    clearTimeout(refreshTimeout);
+  });
+</script>
+
 </body>
 </html>
