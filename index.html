@@ -6,13 +6,12 @@
   <link rel="icon" type="image/svg+xml" href="hub-icon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
       font-family: Arial, sans-serif;
       background-color: #1e1e1e;
       color: white;
-      height: 100%;
+      height: 100vh;
       display: flex;
       overflow: hidden;
     }
@@ -87,69 +86,33 @@
     }
 
     .iframes {
-	flex-grow: 1;
-	width: 100%;
-	height: 100%;
-	position: relative;
-	overflow: hidden; /* Prevents scrollbar from iframe overflow */
-	}
+      flex-grow: 1;
+      width: 100%;
+      height: 100vh;
+      position: relative;
+    }
 
-	.tool-frame {
-	position: absolute;
-	top: 0;
-	left: 0;
-	border: none;
-	width: 100%;
-	height: 100%;
-	display: none;
-	overflow: hidden; /* Prevents scrollbars inside iframe */
-	scrollbar-width: none;
-	box-sizing: border-box;
-	}
-
-	.tool-frame::-webkit-scrollbar {
-	display: none;
-	}
-
-	.tool-frame.active {
-	display: block;
-	}
-
-
-    .refresh-icon {
+    .tool-frame {
       position: absolute;
-      bottom: 20px;
-      right: 20px;
-      width: 30px;
-      height: 30px;
-      background-color: #28a745;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      z-index: 1000;
-      transition: transform 0.4s ease;
+      border: none;
+      width: 100%;
+      height: 100%;
+      display: none;
+      overflow: auto;
+      scrollbar-width: none;
     }
 
-    .refresh-icon:hover {
-      background-color: #2ecc71;
+    .tool-frame::-webkit-scrollbar {
+      display: none;
     }
 
-    .refresh-icon svg {
-      width: 18px;
-      height: 18px;
-      stroke: white;
-    }
-
-    .spin {
-      transform: rotate(360deg);
+    .tool-frame.active {
+      display: block;
     }
   </style>
 </head>
 <body>
-
-    <div class="sidebar">
+  <div class="sidebar">
     <h1>Staff Tool Hub</h1>
 
     <!-- Internal Tools -->
@@ -263,31 +226,12 @@
     <iframe id="tool-civ" class="tool-frame" src="https://nzdurriez.github.io/CIV-Acceptance/"></iframe>
     <iframe id="tool-punishment" class="tool-frame" src="https://nzdurriez.github.io/PunishmentGuidelinesStaff/"></iframe>
     <iframe id="tool-commands" class="tool-frame" src="https://nzdurriez.github.io/StaffQuickAccess/commands.html"></iframe>
-
-    <div class="refresh-icon" onclick="refreshIframe(this)" title="Refresh current tool">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 4v5h.582M20 20v-5h-.581M4.582 9A7.5 7.5 0 0112 4.5a7.5 7.5 0 017.418 6M19.418 15A7.5 7.5 0 0112 19.5a7.5 7.5 0 01-7.418-6"/>
-      </svg>
-    </div>
   </div>
 
   <script>
     function showTool(id) {
       document.querySelectorAll('.tool-frame').forEach(el => el.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-    }
-
-    function refreshIframe(icon) {
-      const currentFrame = document.querySelector('.tool-frame.active');
-      if (!currentFrame) return;
-      icon.classList.add('spin');
-      const src = currentFrame.src;
-      currentFrame.src = '';
-      setTimeout(() => {
-        currentFrame.src = src;
-        icon.classList.remove('spin');
-      }, 100);
     }
   </script>
 </body>
